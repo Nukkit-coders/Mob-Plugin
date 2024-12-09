@@ -1,5 +1,6 @@
 package nukkitcoders.mobplugin.entities.animal.swimming;
 
+import cn.nukkit.event.entity.EntityDamageByEntityEvent;
 import cn.nukkit.event.entity.EntityDamageEvent;
 import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemDye;
@@ -51,16 +52,17 @@ public class Squid extends SwimmingAnimal {
 
     @Override
     public boolean attack(EntityDamageEvent source) {
-        boolean att =  super.attack(source);
+        boolean att = super.attack(source);
         if (source.isCancelled()) {
             return att;
         }
 
-        EntityEventPacket pk = new EntityEventPacket();
-        pk.eid = this.getId();
-        pk.event = EntityEventPacket.SQUID_INK_CLOUD;
-
-        this.level.addChunkPacket(this.getChunkX(), this.getChunkZ(), pk);
+        if (source instanceof EntityDamageByEntityEvent) {
+            EntityEventPacket pk = new EntityEventPacket();
+            pk.eid = this.getId();
+            pk.event = EntityEventPacket.SQUID_INK_CLOUD;
+            this.level.addChunkPacket(this.getChunkX(), this.getChunkZ(), pk);
+        }
         return att;
     }
 }

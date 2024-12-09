@@ -21,7 +21,6 @@ import cn.nukkit.nbt.tag.CompoundTag;
 import cn.nukkit.network.protocol.MobEquipmentPacket;
 import nukkitcoders.mobplugin.MobPlugin;
 import nukkitcoders.mobplugin.entities.monster.WalkingMonster;
-import nukkitcoders.mobplugin.entities.projectile.EntitySlownessArrow;
 import nukkitcoders.mobplugin.utils.FastMathLite;
 import nukkitcoders.mobplugin.utils.Utils;
 
@@ -99,7 +98,8 @@ public class Stray extends WalkingMonster implements EntitySmite {
                     this.z + Math.cos(yawR) * Math.cos(pitchR) * 0.5, yaw, pitch, this.level);
 
             if (this.getLevel().getBlockIdAt(pos.getFloorX(), pos.getFloorY(), pos.getFloorZ()) == Block.AIR) {
-                EntitySlownessArrow arrow = new EntitySlownessArrow(pos.getChunk(), EntitySlownessArrow.getDefaultNBT(pos), this);
+                EntityArrow arrow = new EntityArrow(pos.getChunk(), EntityArrow.getDefaultNBT(pos), this);
+                arrow.setData(19); // slowness
                 setProjectileMotion(arrow, pitch, yawR, pitchR, f);
 
                 EntityShootBowEvent ev = new EntityShootBowEvent(this, Item.get(Item.ARROW, 0, 1), arrow, f);
@@ -119,7 +119,7 @@ public class Stray extends WalkingMonster implements EntitySmite {
                         }
                     } else {
                         projectile.spawnToAll();
-                        ((EntitySlownessArrow) projectile).setPickupMode(EntitySlownessArrow.PICKUP_NONE);
+                        ((EntityArrow) projectile).setPickupMode(EntityArrow.PICKUP_NONE);
                         this.level.addSound(this, Sound.RANDOM_BOW);
                     }
                 }

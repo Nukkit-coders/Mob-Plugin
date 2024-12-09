@@ -281,7 +281,6 @@ public class MobPlugin extends PluginBase implements Listener {
         Entity.registerEntity("ShulkerBullet", EntityShulkerBullet.class);
         Entity.registerEntity("EnderCharge", EntityEnderCharge.class);
         Entity.registerEntity("WitherSkull", EntityWitherSkull.class);
-        Entity.registerEntity("SlownessArrow", EntitySlownessArrow.class);
         Entity.registerEntity("LlamaSpit", EntityLlamaSpit.class);
         Entity.registerEntity("ThrownTrident", DespawnableThrownTrident.class);
     }
